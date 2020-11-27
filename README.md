@@ -100,9 +100,16 @@ Heres a list of things that graphql can do and if my library supports it:
 
 Type of query | Is Supported
 --|--|
-Retrieving | :x:
-Retrieving with arguments | :x:
-Mutations | :x:
-Subscriptions | :x:
+Fields| :x:
+Arguments| :x:
+Aliases| :x:
+Fragments| :x:
+Operation Name| :x:
+Variables| :x:
+Directives| :x:
+Mutations| :x:
+Inline Fragments| :x:
+
+
 
 Hopefully it will eventually support all of these things
