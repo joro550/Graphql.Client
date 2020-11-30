@@ -33,28 +33,24 @@ namespace GraphQlClient.Tests.Unit
 
         public class ArgumentBasedQueryIsReturnedWhen
         {
+            [Fact]
             public void QueryWithFunctionAndArgumentsIsPassed()
             {
                 var queryBuilder = new QueryBuilder(new CamelCaseNamingStrategy());
 
-                var wrapper = new QueryWrapper<HeroQuery> {Query = new HeroQuery()};
+                var wrapper = new QueryWrapper<HeroQueryArgumentQuery> {Query = new HeroQueryArgumentQuery()};
                 var query = queryBuilder.CreateRetrieveQuery(wrapper);
 
-                Assert.Equal("{query {human(name: \"1000\") {name}}}", query);
-                
+                Assert.Equal("{query {human() {height,name}}}", query);
             }
         }
     }
 
-    
-    public class HeroQueryFunction
+    public class HeroQueryArgumentQuery
     {
         [GraphqlArgument]
         public Human Human { get; set; }
-        
-        [GraphqlArgumentParameter(ArgumentName = nameof(Human))]
-        public string Id { get; set; }
-        
+            = new Human();  
     }
 
     public class Human

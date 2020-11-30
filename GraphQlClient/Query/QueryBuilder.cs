@@ -12,14 +12,16 @@ namespace GraphQlClient.Query
         public QueryBuilder(NamingStrategy strategy) 
             => _nameRetriever = CreateChain(strategy);
 
-        private static AttributeNameRetriever CreateChain(NamingStrategy strategy)
+        private static AbstractNameRetriever CreateChain(NamingStrategy strategy)
         {
+            var argumentNameRetriever = new ArgumentNameRetriever(strategy);
             var attributeNameRetriever = new AttributeNameRetriever();
             var propertyNameRetriever = new PropertyNameRetriever(strategy);
 
-            attributeNameRetriever
+            argumentNameRetriever
+                .SetNext(attributeNameRetriever)
                 .SetNext(propertyNameRetriever);
-            return attributeNameRetriever;
+            return argumentNameRetriever;
         }
 
         public string CreateRetrieveQuery<T>(T query) =>
@@ -43,6 +45,7 @@ namespace GraphQlClient.Query
                 if(string.IsNullOrEmpty(name))
                     continue;
                 
+                
                 if (type.IsValueType)
                 {
                     sb.Append($"{name},");
@@ -59,7 +62,7 @@ namespace GraphQlClient.Query
             }
             
             // If the last character is a comma (,) then remove it
-            if(sb[^1] == ',')
+            if(sb.Length > 0 && sb[^1] == ',')
                 return sb
                     .ToString(0, sb.Length - 1);
 
@@ -67,5 +70,19 @@ namespace GraphQlClient.Query
             return sb
                 .ToString();
         }
+    }
+
+
+    public class PropertyPrinter
+    {
+        public StringBuilder Print(StringBuilder sb, Type type,  AbstractNameRetriever nameRetriever)
+        {
+            return sb;
+        }
+    }
+
+    public class ArgumentPrinter
+    {
+        
     }
 }

@@ -11,7 +11,7 @@ namespace GraphQlClient.Query.NameRetriever
             _namingStrategy = namingStrategy;
         }
 
-        public override string GetName(PropertyInfo propertyInfo) 
-            => _namingStrategy.Name(propertyInfo);
+        public override string? GetName(PropertyInfo propertyInfo) 
+            => _namingStrategy.GetName(propertyInfo);
     }
 }
