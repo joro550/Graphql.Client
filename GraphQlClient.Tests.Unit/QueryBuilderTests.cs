@@ -1,6 +1,6 @@
 using Xunit;
 using GraphQlClient.Query;
-using GraphQlClient.Attributes;
+using GraphQlClient.Tests.Unit.Query;
 
 namespace GraphQlClient.Tests.Unit
 {
@@ -44,41 +44,5 @@ namespace GraphQlClient.Tests.Unit
                 Assert.Equal("{query {human() {height,name}}}", query);
             }
         }
-    }
-
-    public class HeroQueryArgumentQuery
-    {
-        [GraphqlArgument]
-        public Human Human { get; set; }
-            = new Human();  
-    }
-
-    public class Human
-    {
-        public string Height { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class HeroQueryWithAttribute
-    {
-        [GraphqlPropertyName("something")]
-        public Hero Hero { get; }
-            = new();
-    }
-
-    public class HeroQuery
-    {
-        public Hero Hero { get; }
-            = new();
-    }
-
-    public class Hero
-    {
-        public string Name { get; set; }
-    }
-
-    public class Serializer : ISerializer
-    {
-
     }
 }

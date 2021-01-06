@@ -7,7 +7,5 @@ namespace GraphQlClient.Attributes
     {
         public string ArgumentName { get; set; }
             = string.Empty;
-        
-        public string? Name { get; set; }
     }
 }
